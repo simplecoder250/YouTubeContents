@@ -33,7 +33,7 @@ trade_open_high = 0
 trade_open_low = 0
 percentageMove = 0
 pnl_Save = {
-            'name':'NSE:INFY','entry_price': 0, 'exit_price': 0,'pnl':0,'range':0,'entry_time':0
+            'name':'NSE:INFY','entry_price': 0, 'exit_price': 0,'pnl':0,'range':0,'entry_time':0,'Cummulative_Profit':0,
 }
 pnlProfits = []
 # Iterating the values of stock
@@ -85,11 +85,16 @@ for index,row in read_stock.iterrows():
                         pnl_Save['pnl'] = pnl
                         pnl_Save['entry_time'] = trade_entry_time
                         pnl_Save['range'] = range
+                        pnl_Save['Cummulative_Profit'] = total_pnl
                         pnlProfits.append(pnl_Save)
+                        pnl_Save = {
+                            'name': 'NSE:INFY', 'entry_price': 0, 'exit_price': 0, 'pnl': 0, 'range': 0,
+                            'entry_time': 0, 'Cummulative_Profit': 0,
+                        }
                         # for key in pnl_Save:
                         #     CM.append_items('TCS.csv', pnl_Save, keyValue=key)
                         # print('pnl is-->', pnl)
-                        # print('Total pnl is-->', total_pnl)
+                        print('Total pnl is-->', total_pnl)
 
                     if row['close'] < trade_sl:        # Stop loss hit
                         trade_exit_time = row['date']
@@ -102,11 +107,16 @@ for index,row in read_stock.iterrows():
                         pnl_Save['pnl'] = pnl
                         pnl_Save['entry_time'] = trade_entry_time
                         pnl_Save['range'] = range
+                        pnl_Save['Cummulative_Profit'] = total_pnl
                         # print('pnl is-->', pnl)
                         pnlProfits.append(pnl_Save)
+                        pnl_Save = {
+                            'name': 'NSE:INFY', 'entry_price': 0, 'exit_price': 0, 'pnl': 0, 'range': 0,
+                            'entry_time': 0, 'Cummulative_Profit': 0,
+                        }
                         # for key in pnl_Save:
                         #     CM.append_items('TCS.csv', pnl_Save, keyValue=key)
-                        # print('Total pnl is-->', total_pnl)
+                        print('Total pnl is-->', total_pnl)
 
                 if trade_short is True:
 
@@ -122,11 +132,16 @@ for index,row in read_stock.iterrows():
                         pnl_Save['pnl'] = pnl
                         pnl_Save['entry_time'] = trade_entry_time
                         pnl_Save['range'] = range
+                        pnl_Save['Cummulative_Profit'] = total_pnl
                         pnlProfits.append(pnl_Save)
+                        pnl_Save = {
+                            'name': 'NSE:INFY', 'entry_price': 0, 'exit_price': 0, 'pnl': 0, 'range': 0,
+                            'entry_time': 0, 'Cummulative_Profit': 0,
+                        }
                         # for key in pnl_Save:
                         #     CM.append_items('TCS.csv', pnl_Save, keyValue=key)
                         # print('pnl is-->', pnl)
-                        # print('Total pnl is-->', total_pnl)
+                        print('Total pnl is-->', total_pnl)
 
                     if row['close'] > trade_sl:
                         trade_exit_time = row['date']
@@ -140,11 +155,16 @@ for index,row in read_stock.iterrows():
                         pnl_Save['pnl'] = pnl
                         pnl_Save['entry_time'] = trade_entry_time
                         pnl_Save['range'] = range
+                        pnl_Save['Cummulative_Profit'] = total_pnl
                         pnlProfits.append(pnl_Save)
+                        pnl_Save = {
+                            'name': 'NSE:INFY', 'entry_price': 0, 'exit_price': 0, 'pnl': 0, 'range': 0,
+                            'entry_time': 0, 'Cummulative_Profit': 0,
+                        }
                         # for key in pnl_Save:
                         #     CM.append_items('TCS.csv', pnl_Save, keyValue=key)
                         # print('pnl is-->', pnl)
-                        # print('Total pnl is-->', total_pnl)
+                        print('Total pnl is-->', total_pnl)
 
             if row['date'][11:16] is "15:15":
                 print('Exit while market close')
@@ -160,7 +180,12 @@ for index,row in read_stock.iterrows():
                     pnl_Save['pnl'] = pnl
                     pnl_Save['entry_time'] = trade_entry_time
                     pnl_Save['range'] = range
+                    pnl_Save['Cummulative_Profit'] = total_pnl
                     pnlProfits.append(pnl_Save)
+                    pnl_Save = {
+                        'name': 'NSE:INFY', 'entry_price': 0, 'exit_price': 0, 'pnl': 0, 'range': 0, 'entry_time': 0,
+                        'Cummulative_Profit': 0,
+                    }
                     # for key in pnl_Save:
                     #    CM.append_items('TCS.csv', pnl_Save, keyValue=key)
                     # print('Total pnl is-->', total_pnl)
@@ -174,10 +199,15 @@ for index,row in read_stock.iterrows():
                     pnl_Save['pnl'] = pnl
                     pnl_Save['entry_time'] = trade_entry_time
                     pnl_Save['range'] = range
+                    pnl_Save['Cummulative_Profit'] = total_pnl
                     pnlProfits.append(pnl_Save)
+                    pnl_Save = {
+                        'name': 'NSE:INFY', 'entry_price': 0, 'exit_price': 0, 'pnl': 0, 'range': 0, 'entry_time': 0,
+                        'Cummulative_Profit': 0,
+                    }
                     # for key in pnl_Save:
                     #     CM.append_items('TCS.csv', pnl_Save, keyValue=key)
-                    # print('Total pnl is-->', total_pnl)
+                    print('Total pnl is-->', total_pnl)
 
         if traded is False:   # We havent entered the market
             if row['close'] >= trade_open_high:  # Breakout occured upward
