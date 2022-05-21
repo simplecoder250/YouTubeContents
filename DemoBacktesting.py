@@ -2,9 +2,9 @@ import pandas as pd
 import time
 from utils import PositionSizing as ps
 from utils import Move as mv
-watchlist = ['HDFC']
+watchlist = ['TCS']
 import time
-
+from PythonImportantApis import  csvManipulation as CM
 
 # Initialization of values
 totalFund = 100000
@@ -26,14 +26,20 @@ total_pnl = 0
 
 
 # Taking the past values of stocks
-read_stock = pd.read_csv('/Users/vivekpatel/PycharmProjects/30MinsBreakout/5 minute/HDFC.csv')
+read_stock = pd.read_csv('/Users/vivekpatel/PycharmProjects/30MinsBreakout/5 minute/HDFC.csv')  # Provide the path of file
 high = 0
 low = 11110000
 trade_open_high = 0
 trade_open_low = 0
 percentageMove = 0
-
+pnl_Save = {
+            'name':'TCS','entry_price': 0,'exit_price': 0,'entry_time':0,'exit_time':0,'pnl':0,'range':0,
+            'Cummulative_Profit':0,'percentageReturn':0
+}
+pnlProfits = []
 # Iterating the values of stock
+
+
 for index,row in read_stock.iterrows():
 
     if row['date'][11:16] == "09:15":
@@ -75,7 +81,25 @@ for index,row in read_stock.iterrows():
                         pnl = (exit_price - entry_price) * trade_qty
                         trade_pnlBooked = True
                         total_pnl = total_pnl + pnl
-                        print('pnl is-->', pnl)
+                        pnl_Save['entry_price'] = entry_price
+                        pnl_Save['exit_price'] = exit_price
+                        pnl_Save['pnl'] = pnl
+                        pnl_Save['entry_time'] = trade_entry_time
+                        pnl_Save['exit_time'] = trade_exit_time
+                        pnl_Save['range'] = range
+                        pnl_Save['Cummulative_Profit'] = total_pnl
+                        if trade_long is True :
+                            pnl_Save['percentageReturn'] = (( exit_price - entry_price ) / entry_price )*100
+                        else :
+                            pnl_Save['percentageReturn'] = ((entry_price - exit_price) / entry_price) * 100
+                        pnlProfits.append(pnl_Save)
+                        pnl_Save = {
+            'name':'TCS','entry_price': 0,'entry_time':0,'exit_price': 0,'exit_time':0,'pnl':0,'range':0,
+            'Cummulative_Profit':0,'percentageReturn':0
+}
+                        # for key in pnl_Save:
+                        #     CM.append_items('TCS.csv', pnl_Save, keyValue=key)
+                        # print('pnl is-->', pnl)
                         print('Total pnl is-->', total_pnl)
 
                     if row['close'] < trade_sl:        # Stop loss hit
@@ -84,7 +108,26 @@ for index,row in read_stock.iterrows():
                         pnl = (exit_price - entry_price) * trade_qty
                         trade_pnlBooked = True
                         total_pnl = total_pnl + pnl
-                        print('pnl is-->', pnl)
+                        pnl_Save['entry_price'] = entry_price
+                        pnl_Save['exit_price'] = exit_price
+                        pnl_Save['pnl'] = pnl
+                        pnl_Save['entry_time'] = trade_entry_time
+                        pnl_Save['exit_time'] = trade_exit_time
+                        pnl_Save['range'] = range
+                        pnl_Save['Cummulative_Profit'] = total_pnl
+                        if trade_long is True:
+                            pnl_Save['percentageReturn'] = ((exit_price - entry_price) / entry_price) * 100
+                        else:
+                            pnl_Save['percentageReturn'] = ((entry_price - exit_price) / entry_price) * 100
+
+                        # print('pnl is-->', pnl)
+                        pnlProfits.append(pnl_Save)
+                        pnl_Save = {
+            'name':'TCS','entry_price': 0,'entry_time':0,'exit_price': 0,'exit_time':0,'pnl':0,'range':0,
+            'Cummulative_Profit':0,'percentageReturn':0
+}
+                        # for key in pnl_Save:
+                        #     CM.append_items('TCS.csv', pnl_Save, keyValue=key)
                         print('Total pnl is-->', total_pnl)
 
                 if trade_short is True:
@@ -95,7 +138,27 @@ for index,row in read_stock.iterrows():
                         pnl = (entry_price - exit_price) * trade_qty
                         trade_pnlBooked = True
                         total_pnl = total_pnl + pnl
-                        print('pnl is-->', pnl)
+                        pnl_Save['name'] = 'TCS'
+                        pnl_Save['entry_price'] = entry_price
+                        pnl_Save['exit_price'] = exit_price
+                        pnl_Save['pnl'] = pnl
+                        pnl_Save['entry_time'] = trade_entry_time
+                        pnl_Save['exit_time'] = trade_exit_time
+                        pnl_Save['range'] = range
+                        pnl_Save['Cummulative_Profit'] = total_pnl
+                        if trade_long is True:
+                            pnl_Save['percentageReturn'] = ((exit_price - entry_price) / entry_price) * 100
+                        else:
+                            pnl_Save['percentageReturn'] = ((entry_price - exit_price) / entry_price) * 100
+
+                        pnlProfits.append(pnl_Save)
+                        pnl_Save = {
+            'name':'TCS','entry_price': 0,'entry_time':0,'exit_price': 0,'exit_time':0,'pnl':0,'range':0,
+            'Cummulative_Profit':0,'percentageReturn':0
+}
+                        # for key in pnl_Save:
+                        #     CM.append_items('TCS.csv', pnl_Save, keyValue=key)
+                        # print('pnl is-->', pnl)
                         print('Total pnl is-->', total_pnl)
 
                     if row['close'] > trade_sl:
@@ -104,8 +167,27 @@ for index,row in read_stock.iterrows():
                         pnl = (entry_price - exit_price) * trade_qty
                         trade_pnlBooked = True
                         total_pnl = total_pnl + pnl
+                        pnl_Save['name'] = 'TCS'
+                        pnl_Save['entry_price'] = entry_price
+                        pnl_Save['exit_price'] = exit_price
+                        pnl_Save['pnl'] = pnl
+                        pnl_Save['entry_time'] = trade_entry_time
+                        pnl_Save['exit_time'] = trade_exit_time
+                        pnl_Save['range'] = range
+                        pnl_Save['Cummulative_Profit'] = total_pnl
+                        if trade_long is True:
+                            pnl_Save['percentageReturn'] = ((exit_price - entry_price) / entry_price) * 100
+                        else:
+                            pnl_Save['percentageReturn'] = ((entry_price - exit_price) / entry_price) * 100
 
-                        print('pnl is-->', pnl)
+                        pnlProfits.append(pnl_Save)
+                        pnl_Save = {
+            'name':'TCS','entry_price': 0,'entry_time':0,'exit_price': 0,'exit_time':0,'pnl':0,'range':0,
+            'Cummulative_Profit':0,'percentageReturn':0
+}
+                        # for key in pnl_Save:
+                        #     CM.append_items('TCS.csv', pnl_Save, keyValue=key)
+                        # print('pnl is-->', pnl)
                         print('Total pnl is-->', total_pnl)
 
             if row['date'][11:16] is "15:15":
@@ -116,11 +198,42 @@ for index,row in read_stock.iterrows():
                 if trade_long is True:
                     pnl = (exit_price - entry_price) * trade_qty
                     total_pnl = total_pnl + pnl
-                    print('Total pnl is-->', total_pnl)
+                    pnl_Save['name'] = 'TCS'
+                    pnl_Save['entry_price'] = entry_price
+                    pnl_Save['exit_price'] = exit_price
+                    pnl_Save['pnl'] = pnl
+                    pnl_Save['entry_time'] = trade_entry_time
+                    pnl_Save['exit_time'] = trade_exit_time
+                    pnl_Save['range'] = range
+                    pnl_Save['Cummulative_Profit'] = total_pnl
+                    pnlProfits.append(pnl_Save)
+                    pnl_Save = {
+                        'name': 'TCS', 'entry_price': 0, 'exit_price': 0, 'exit_time': 0, 'pnl': 0, 'range': 0,
+                        'entry_time': 0,
+                        'Cummulative_Profit': 0, 'percentageReturn': 0
+                    }
+                    # for key in pnl_Save:
+                    #    CM.append_items('TCS.csv', pnl_Save, keyValue=key)
+                    # print('Total pnl is-->', total_pnl)
 
                 if trade_short is True:
                     pnl = (entry_price - exit_price) * trade_qty
                     total_pnl = total_pnl + pnl
+                    pnl_Save['name'] = 'TCS'
+                    pnl_Save['entry_price'] = entry_price
+                    pnl_Save['exit_price'] = exit_price
+                    pnl_Save['pnl'] = pnl
+                    pnl_Save['entry_time'] = trade_entry_time
+                    pnl_Save['exit_time'] = trade_exit_time
+                    pnl_Save['range'] = range
+                    pnl_Save['Cummulative_Profit'] = total_pnl
+                    pnlProfits.append(pnl_Save)
+                    pnl_Save = {
+                        'name': 'NSE:INFY', 'entry_price': 0, 'exit_price': 0, 'pnl': 0, 'range': 0, 'entry_time': 0,
+                        'Cummulative_Profit': 0,
+                    }
+                    # for key in pnl_Save:
+                    #     CM.append_items('TCS.csv', pnl_Save, keyValue=key)
                     print('Total pnl is-->', total_pnl)
 
         if traded is False:   # We havent entered the market
@@ -153,7 +266,8 @@ for index,row in read_stock.iterrows():
         if low > row['low']:
             low = row['low']
 
-
+newData = pd.DataFrame(pnlProfits)
+newData.to_csv('TCS.csv')
 print('Total Number of Trades',traded_count)
 
 
